@@ -1,0 +1,32 @@
+package com.maxton.bad_android
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.maxton.bad_android.core.di.ServiceLocator
+import com.maxton.bad_android.core.notification.NotificationHelper
+import com.maxton.bad_android.theme.BADAndroidTheme
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        ServiceLocator.init(applicationContext)
+        NotificationHelper.createDefaultChannel(this)
+        enableEdgeToEdge()
+        setContent {
+            BADAndroidTheme {
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    MainNavigation()
+                }
+            }
+        }
+    }
+}
